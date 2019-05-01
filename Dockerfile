@@ -14,4 +14,6 @@ RUN yarn install --check-files
 
 COPY . .
 
+RUN rake assets:precompile
+
 CMD puma -C config/puma.rb
