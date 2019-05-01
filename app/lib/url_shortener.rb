@@ -1,20 +1,21 @@
 require 'addressable'
 
 module UrlShortener
+  PARSE_URL = -> (url) { Addressable::URI.heuristic_parse(url) }
+  DOWNCASE_HOST = -> (parsed) { parsed.host = parsed.host.downcase; parsed }
+  STRINGIFY_HOST = -> (parsed) { parsed.to_s }
+  CRC32_URL = -> (url) { Digest::CRC32.hexdigest(url) }
+
+  PREPROCESSORS = [
+    PARSE_URL,
+    DOWNCASE_HOST,
+    STRINGIFY_HOST,
+    CRC32_URL
+  ]
+
   class << self
+
     attr_accessor :configuration
-
-    PARSE_URL = -> (url) { Addressable::URI.heuristic_parse(url) }
-    DOWNCASE_HOST = -> (url) { url.host = url.host.downcase }
-    STRINGIFY_HOST = -> (url) { url.to_s }
-    CRC32_URL = -> (url) { Digest::CRC32.hexdigest(url) }
-
-    PREPROCESSORS = [
-      PARSE_URL,
-      DOWNCASE_HOST,
-      STRINGIFY_HOST,
-      CRC32_URL
-    ]
 
     def configure
       self.configuration ||= UrlShortener::Config.new
