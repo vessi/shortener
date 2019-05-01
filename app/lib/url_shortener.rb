@@ -22,7 +22,7 @@ module UrlShortener
     end
 
     def store(url:, base_host:)
-      shorten_url = PREPROCESSORS.inject(&:<<).call(url)
+      shorten_url = PREPROCESSORS.inject(&:>>).call(url)
       configuration.storage.store(shorten_url, url)
       base_host + shorten_url
     end
