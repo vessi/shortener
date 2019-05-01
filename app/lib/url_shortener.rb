@@ -1,14 +1,18 @@
+require 'addressable'
+
 module UrlShortener
   class << self
     attr_accessor :configuration
 
-    SANITIZE_URL = -> (url) { url }
-    DOWNCASE_URL_HOST = -> (url) { url }
+    PARSE_URL = -> (url) { Addressable::URI.heuristic_parse(url) }
+    DOWNCASE_HOST = -> (url) { url.host = url.host.downcase }
+    STRINGIFY_HOST = -> (url) { url.to_s }
     CRC32_URL = -> (url) { Digest::CRC32.hexdigest(url) }
 
     PREPROCESSORS = [
-      SANITIZE_URL,
-      DOWNCASE_URL_HOST,
+      PARSE_URL,
+      DOWNCASE_HOST,
+      STRINGIFY_HOST,
       CRC32_URL
     ]
 
@@ -17,10 +21,10 @@ module UrlShortener
       yield(configuration)
     end
 
-    def store(url:)
+    def store(url:, base_host:)
       shorten_url = PREPROCESSORS.inject(&:<<).call(url)
       configuration.storage.store(shorten_url, url)
-      shorten_url
+      base_host + shorten_url
     end
 
     def fetch(shorten_url:)

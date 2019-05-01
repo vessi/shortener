@@ -3,8 +3,8 @@ class IndexController < ApplicationController
   end
 
   def short_url
-    shorten = UrlShortener.store(url: params[:url])
-    render json: { short_url: shorten, url: url }
+    shorten = UrlShortener.store(url: params[:url], base_host: root_url)
+    render json: { short_url: shorten, url: params[:url] }
   end
 
   def unshort_url
