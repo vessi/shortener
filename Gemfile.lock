@@ -68,6 +68,7 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    digest-crc (0.4.1)
     erubi (1.8.0)
     execjs (2.7.0)
     ffi (1.10.0)
@@ -145,6 +146,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    redis (4.1.0)
     regexp_parser (1.4.0)
     rubocop (0.68.1)
       jaro_winkler (~> 1.5.1)
@@ -212,11 +214,13 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   capybara (>= 2.15)
   chromedriver-helper
+  digest-crc
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pry-rails
   puma (~> 3.11)
   rails (~> 5.2.3)
+  redis
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver
