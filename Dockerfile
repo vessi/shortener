@@ -7,6 +7,9 @@ RUN gem install bundler
 RUN mkdir /app
 WORKDIR /app
 
+ENV RAILS_ENV production
+ENV RAILS_SERVE_STATIC_FILES true
+
 COPY Gemfile Gemfile.lock ./
 RUN bundle install --binstubs --without development test
 COPY package.json yarn.lock ./
