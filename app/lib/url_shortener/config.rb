@@ -1,12 +1,11 @@
 module UrlShortener
-  module Config
-    extend self
+  class Config
     attr_accessor :storage_engine, :storage
-    attr_reader :storage
 
-    def configure
-      yield self
-      @storage = storage_engine.new
+    def storage_engine=(value)
+      @storage_engine = value
+      self.storage = storage_engine.new
     end
+
   end
 end
