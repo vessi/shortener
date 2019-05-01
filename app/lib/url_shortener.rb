@@ -1,20 +1,24 @@
+# frozen_string_literal: true
+
 require 'addressable'
 
 module UrlShortener
-  PARSE_URL = -> (url) { Addressable::URI.heuristic_parse(url) }
-  DOWNCASE_HOST = -> (parsed) { parsed.host = parsed.host.downcase; parsed }
-  STRINGIFY_HOST = -> (parsed) { parsed.to_s }
-  CRC32_URL = -> (url) { Digest::CRC32.hexdigest(url) }
+  PARSE_URL = ->(url) { Addressable::URI.heuristic_parse(url) }
+  DOWNCASE_HOST = lambda do |parsed|
+    parsed.host = parsed.host.downcase
+    parsed
+  end
+  STRINGIFY_HOST = ->(parsed) { parsed.to_s }
+  CRC32_URL = ->(url) { Digest::CRC32.hexdigest(url) }
 
   PREPROCESSORS = [
     PARSE_URL,
     DOWNCASE_HOST,
     STRINGIFY_HOST,
     CRC32_URL
-  ]
+  ].freeze
 
   class << self
-
     attr_accessor :configuration
 
     def configure

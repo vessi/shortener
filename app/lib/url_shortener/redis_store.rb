@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UrlShortener
   class RedisStore
     def initialize
@@ -5,7 +7,7 @@ module UrlShortener
     end
 
     def store(key, value)
-      @client.set(key.to_s, value.to_s) == "OK"
+      @client.set(key.to_s, value.to_s) == 'OK'
     end
 
     def fetch(key)

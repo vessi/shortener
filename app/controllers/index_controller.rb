@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class IndexController < ApplicationController
-  def index
-  end
+  def index; end
 
   def short_url
     shorten = UrlShortener.store(url: params[:url], base_host: root_url)

@@ -8,3 +8,7 @@ Style/ClassAndModuleChildren:
 Style/MixinUsage:
   Exclude:
     - ./bin/*
+
+Metrics/BlockLength:
+  Exclude:
+    - ./spec/**/*

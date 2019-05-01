@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe UrlShortener do
@@ -28,7 +30,7 @@ RSpec.describe UrlShortener do
 
   context '#configure' do
     it 'instantiates store' do
-      storage_stub = class_double("Store")
+      storage_stub = class_double('Store')
       expect(storage_stub).to receive(:new)
 
       described_class.configure do |config|
@@ -37,7 +39,7 @@ RSpec.describe UrlShortener do
     end
 
     it 'stores configuration' do
-      storage_stub = class_double("Store")
+      storage_stub = class_double('Store')
       storage = double(:storage)
       allow(storage_stub).to receive(:new).and_return(storage)
       described_class.configure do |config|
@@ -59,7 +61,7 @@ RSpec.describe UrlShortener do
 
     it 'applies all preprocessors' do
       expect(storage).to receive(:store).with('5ea077a5', 'http://www.google.com')
-      described_class.store(url: 'http://www.google.com', base_host:'')
+      described_class.store(url: 'http://www.google.com', base_host: '')
     end
 
     it 'adds base url' do
